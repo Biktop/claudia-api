@@ -1,5 +1,4 @@
 import API from 'claudia-api-builder';
-import { StatusError } from './errors';
 
 function request(callback) {
   return async function (req) {
@@ -9,9 +8,8 @@ function request(callback) {
     catch (error) {
       console.error(`Status: ${error.status}. Message: ${error.message}. Code: ${error.code}. Stack: ${error.stack}`);
 
-      const { status, code } = error instanceof StatusError
-        ? error
-        : { status: error.status || 500, code: '' };
+      const status = error.status || 500;
+      const code = error.code || 'unexpected';
 
       return new API.ApiResponse({ code }, {}, status);
     }
@@ -27,4 +25,4 @@ const api = new API();
   }
 });
 
-export { api, StatusError };
+export default api;
