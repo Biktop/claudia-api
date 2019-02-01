@@ -10,8 +10,9 @@ function request(callback) {
 
       const status = error.status || 500;
       const code = error.code || 'unexpected';
+      const message = (error.code && error.message) || '';
 
-      return new API.ApiResponse({ code }, {}, status);
+      return new API.ApiResponse({ code, message }, {}, status);
     }
   }
 }

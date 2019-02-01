@@ -1,6 +1,6 @@
 {
   "name": "@b1kt0p/claudia-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wrapper for claudia=api-builder",
   "main": "./lib/index.js",
   "files": [
@@ -26,11 +26,12 @@
   },
   "homepage": "https://github.com/Biktop/claudia-api#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "babel-preset-minify": "^0.5.0"
   },
   "dependencies": {
-    "claudia-api-builder": "^4.1.1"
+    "claudia-api-builder": "^4.1.2"
   }
 }
