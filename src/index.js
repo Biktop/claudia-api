@@ -11,13 +11,13 @@ function request(callback) {
       const status = error.status || 500;
       if (error.through) {
         delete error.through;
-        return new API.ApiResponse(error, {}, status);
+        return new API.ApiResponse(error, { 'Content-Type': 'pplication/json' }, status);
       }
 
       const code = error.code || 'unexpected';
       const message = (error.code && error.message) || '';
 
-      return new API.ApiResponse({ code, message }, {}, status);
+      return new API.ApiResponse({ code, message }, { 'Content-Type': 'pplication/json' }, status);
     }
   }
 }

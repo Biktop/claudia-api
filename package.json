@@ -1,6 +1,6 @@
 {
   "name": "@b1kt0p/claudia-api",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Wrapper for claudia=api-builder",
   "main": "./lib/index.js",
   "files": [
