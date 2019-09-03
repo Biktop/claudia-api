@@ -9,6 +9,11 @@ function request(callback) {
       console.error(`Status: ${error.status}. Message: ${error.message}. Code: ${error.code}. Stack: ${error.stack}`);
 
       const status = error.status || 500;
+      if (error.through) {
+        delete error.through;
+        return new API.ApiResponse(error, {}, status);
+      }
+
       const code = error.code || 'unexpected';
       const message = (error.code && error.message) || '';
 
