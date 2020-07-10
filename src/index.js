@@ -33,7 +33,7 @@ api.proxyRouter = function (event, context, callback) {
     event.requestContext.httpMethod = event.httpMethod;
   }
   originRouter(event, context, callback);
-}
+};
 
 ['get', 'post', 'put', 'delete', 'head', 'patch'].forEach(method => {
   api[`${method}_`] = api[method];
