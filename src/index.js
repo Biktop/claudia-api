@@ -24,6 +24,17 @@ function request(callback) {
 
 const api = new API();
 
+const originRouter = api.proxyRouter;
+
+// Suport AWS ALB
+api.proxyRouter = function (event, context, callback) {
+  if (event.requestContext && event.requestContext.elb) {
+    event.requestContext.resourcePath = event.path;
+    event.requestContext.httpMethod = event.httpMethod;
+  }
+  originRouter(event, context, callback);
+}
+
 ['get', 'post', 'put', 'delete', 'head', 'patch'].forEach(method => {
   api[`${method}_`] = api[method];
   api[method] = function (route, handler, options) {
