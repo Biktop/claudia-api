@@ -31,6 +31,12 @@ api.proxyRouter = function (event, context, callback) {
   if (event.requestContext && event.requestContext.elb) {
     event.requestContext.resourcePath = event.path;
     event.requestContext.httpMethod = event.httpMethod;
+
+    const queryString = event.queryStringParameters;
+    event.queryStringParameters = Object.keys(queryString).reduce((obj, key) => {
+      obj[decodeURIComponent(key)] = decodeURIComponent(queryString[key]);
+      return obj;
+    }, {});
   }
   originRouter(event, context, callback);
 };
