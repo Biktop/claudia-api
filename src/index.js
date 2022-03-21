@@ -1,4 +1,4 @@
-import API from 'claudia-api-builder';
+import API from '@b1kt0p/claudia-api-builder';
 
 function request(callback) {
   return async function (req) {
