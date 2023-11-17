@@ -26,9 +26,9 @@ const api = new API();
 
 const originRouter = api.proxyRouter;
 
-// Suport AWS ALB
 api.proxyRouter = function (event, context, callback) {
   if (event.requestContext && event.requestContext.elb) {
+    // Suport AWS ALB
     event.requestContext.resourcePath = event.path;
     event.requestContext.httpMethod = event.httpMethod;
 
@@ -37,6 +37,16 @@ api.proxyRouter = function (event, context, callback) {
       obj[decodeURIComponent(key)] = decodeURIComponent(queryString[key]);
       return obj;
     }, {});
+  }
+  else if (event.requestContext?.http) {
+    // Suport AWS CloudFront
+    let { method, path } = event.requestContext?.http;
+    if (path.startsWith('/api')) {
+      path = path.replace(/^\/api(\/.+)$/, '$1');
+    }
+
+    event.requestContext.resourcePath = path;
+    event.requestContext.httpMethod = method;
   }
   originRouter(event, context, callback);
 };
